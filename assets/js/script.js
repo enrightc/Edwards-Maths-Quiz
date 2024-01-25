@@ -22,19 +22,31 @@ document.addEventListener("DOMContentLoaded", function() {
                 // If the clicked button does not have a data-type attribute equal to "submit," it retrieves the value of the data-type attribute and shows an alert with a template string indicating which type of button was clicked.
             } else {
                 let gameType = this.getAttribute("data-type");
-                alert(`You clicked the ${gameType}`)
+                runGame(gameType);
             }
         });
     }
+
+    //This starts an addition game as soon as the page is loaded. It is the default game so need to add it to the dom content loaded event listener. The rungame("addition"  is inside of the event listener but outside of the for loop)
+    runGame("addition");
 });
 
 
 /** 
  * The main game "loop,", called when the script is first loaded and after the user's answer has been processed
  */
-function runGame() {
+// gameType is being supplied as the parameter of the function. i.e. passing the game type into the parameter as an arguement.
+function runGame(gameType) {
     let num1 = Math.floor(Math.random()*25) + 1;
     let num2 = Math.floor(Math.random()*25) + 1;
+
+    // check the gametype parameter if it is equal to addition it will display addition question. Otherwise it will display an error.
+    if (gameType ==="addition") {
+        displayAdditionQuestion(num1, num2);
+    } else {
+        alert(`unknown game type: ${gameType}`);
+        // this is logged to the console.
+        throw `unknown game type: ${gameType}, Aborting!`};
 } 
 
 function checkAnswer() {
@@ -54,8 +66,11 @@ function incrementWrongAnswer() {
 
 }
 
-function displayAdditionQuestion() {
-
+function displayAdditionQuestion(operand1, operand2) {
+    // IDs are in the question area of the html.
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "+";
 }
 
 function displaySubtractQuestion() {

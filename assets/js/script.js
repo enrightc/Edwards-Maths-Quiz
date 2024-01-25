@@ -65,8 +65,12 @@ function checkAnswer() {
     // if it is true congratulate the user. if it is false provide the correct answer. 
     if (isCorrect) {
         alert("Hey! you got it right!");
+        // calls the function to increment correct answer score.
+        incrementScore();
     } else {
         alert(`Awww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+         // calls the function to increment wrong answer tally..
+        incrementWrongAnswer()
     }
 
     // Lastly need to auto run another game of the same time.
@@ -93,12 +97,19 @@ function calculateCorrectAnswer() {
     }
 }
 
-function incrementScore() {
+/** Gets the current score from the DOM and increments it by 1 */
 
+// Need to tell correctAnswer() to call the following two functions at the appropriate time. 
+function incrementScore() {
+    let oldScore = parseInt(document.getElementById("score").innerText);
+    // putting the double plus before the variable means JS will get the ID of score, then set the inner text to one plus old score. 
+    document.getElementById("score").innerText = ++oldScore;
 }
 
+/** Gets the current incorrect answers from the DOM and increments it by 1 */
 function incrementWrongAnswer() {
-
+    let oldScore = parseInt(document.getElementById("incorrect").innerText);
+    document.getElementById("incorrect").innerText = ++oldScore;
 }
 
 function displayAdditionQuestion(operand1, operand2) {

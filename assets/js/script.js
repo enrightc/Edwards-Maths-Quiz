@@ -46,7 +46,9 @@ function runGame(gameType) {
         displayAdditionQuestion(num1, num2);
     } else if (gameType === "multiply") {
         displayMultiplyQuestion(num1, num2);
-    }else {
+    } else if (gameType === "subtract") {
+        displaySubtractQuestion(num1,num2);
+    } else {
         alert(`unknown game type: ${gameType}`);
         // this is logged to the console.
         throw `unknown game type: ${gameType}, Aborting!`};
@@ -95,6 +97,8 @@ function calculateCorrectAnswer() {
         return [operand1 + operand2, "addition"];
     } else if (operator === "x") {
         return [operand1 * operand2, "multiply"]
+    } else if (operator === "-") {
+        return [operand1 - operand2, "subtract"]
     } else {
         alert(`unimplemented operator ${operator}`);
         throw `unimpletemented operator ${operator}. Aborting!`;
@@ -123,11 +127,14 @@ function displayAdditionQuestion(operand1, operand2) {
     document.getElementById('operator').textContent = "+";
 }
 
-function displaySubtractQuestion() {
-
+function displaySubtractQuestion(operand1, operand2) {
+    document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById('operand2').textContent = operand1 > operand2 ? operand2 : operand1;
+    document.getElementById('operator').textContent = "-";
 }
 
 function displayMultiplyQuestion(operand1, operand2) {
+    // Use JS tenary operator to make sure the larger number is on the left so you dont get a negative result. Which is bigger: opperand1 or operand2? if operand1 is bigger, return that. if operand2 is bigger, return that instead. 
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "x";

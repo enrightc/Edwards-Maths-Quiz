@@ -27,7 +27,14 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-
+    // Allows user to press enter instead of click submit.
+    // Listens for a key down event. every event generates a object which is being passed into the event handler.
+        document.getElementById("answer-box").addEventListener("keydown", function(event) {
+            // Check the key property, if the key that was pressed is "Enter" then run checkAnswer function.
+            if (event.key ==="Enter") {
+                checkAnswer();
+            }
+        })
     //This starts an addition game as soon as the page is loaded. It is the default game so need to add it to the dom content loaded event listener. The rungame("addition"  is inside of the event listener but outside of the for loop)
     runGame("addition");
 });
@@ -38,6 +45,13 @@ document.addEventListener("DOMContentLoaded", function() {
  */
 // gameType is being supplied as the parameter of the function. i.e. passing the game type into the parameter as an arguement.
 function runGame(gameType) {
+
+    // Each time runGame function is called it will set the value to an empty string, effectively clearly the answer box. 
+    document.getElementById("answer-box").value = "";
+
+    //sets the cursor to inside the answer box. Sets the answer box to the focus.
+    document.getElementById("answer-box").focus();
+    //creates two random numbers between 1 and 25
     let num1 = Math.floor(Math.random()*25) + 1;
     let num2 = Math.floor(Math.random()*25) + 1;
 

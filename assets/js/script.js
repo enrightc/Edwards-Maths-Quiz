@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", function() {
             // Inside the click event handler, it checks if the clicked button has a data-type attribute with the value "submit." If true, it shows an alert saying "You clicked submit!".
             // 'this' refers to the button that was just clicked. 
             if (this.getAttribute("data-type") === "submit") {
-                alert("You clicked submit!");
+                //This calls the checkAnswer function
+                checkAnswer();
                 // Handle Non-Submit Buttons:
                 // If the clicked button does not have a data-type attribute equal to "submit," it retrieves the value of the data-type attribute and shows an alert with a template string indicating which type of button was clicked.
             } else {
@@ -49,13 +50,47 @@ function runGame(gameType) {
         throw `unknown game type: ${gameType}, Aborting!`};
 } 
 
+/** checks the answer against the first element in the returned calculcatedCorrectAnswer array  */
 function checkAnswer() {
+    // because it is an input element need to get value from it, Cant use innerText for this. This takes the value from the user input and stores it in the variable "userAnswer".
+    //Retrieving the answer from the DOM
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    // This assigns calculatedAnswer variable an  array that was assigned in calculatedCorrectedAnswer function. 
+    //Calculating the correct answer from the correctAnswer function.
+    let calculatedAnswer = calculateCorrectAnswer();
+    // This is the comparison.
+    // setting an iscorrect variable that will either be true or false.
+    let isCorrect = userAnswer === calculatedAnswer[0];
 
+    // if it is true congratulate the user. if it is false provide the correct answer. 
+    if (isCorrect) {
+        alert("Hey! you got it right!");
+    } else {
+        alert(`Awww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+    }
+
+    // Lastly need to auto run another game of the same time.
+    runGame(calculatedAnswer[1]);
 }
 
-
+/**
+ * Gets the operands (the numbers) and the operator (plus, minus etc) directly from the dom, and returns the correct answer.
+ */
 function calculateCorrectAnswer() {
+    // read the value from the dom and store it in variable. innerText will get the value of the element.
+    
+    // First get the values back from the DOM. Using parseInt function to make sure value is treated as an integer (whole number). By default when JS gets data from the dom it retuns it as a string, which you cant use in mathematical operations and it needs to be a number. Thats why using parseInt. 
+    let operand1 = parseInt(document.getElementById('operand1').innerText);
+    let operand2 = parseInt(document.getElementById('operand2').innerText);
+    let operator = document.getElementById("operator").innerText;
 
+    // Need to calculate correct answer based on game type and we are determining game type by the operator. This says that if the operator is a "+" sign it must be the addition game. 
+    if (operator === "+") {
+        return [operand1 + operand2, "addition"];
+    } else {
+        alert(`unimplemented operator ${operator}`);
+        throw `unimpletemented operator ${operator}. Aborting!`;
+    }
 }
 
 function incrementScore() {

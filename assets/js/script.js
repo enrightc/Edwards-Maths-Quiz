@@ -44,7 +44,9 @@ function runGame(gameType) {
     // check the gametype parameter if it is equal to addition it will display addition question. Otherwise it will display an error.
     if (gameType ==="addition") {
         displayAdditionQuestion(num1, num2);
-    } else {
+    } else if (gameType === "multiply") {
+        displayMultiplyQuestion(num1, num2);
+    }else {
         alert(`unknown game type: ${gameType}`);
         // this is logged to the console.
         throw `unknown game type: ${gameType}, Aborting!`};
@@ -91,6 +93,8 @@ function calculateCorrectAnswer() {
     // Need to calculate correct answer based on game type and we are determining game type by the operator. This says that if the operator is a "+" sign it must be the addition game. 
     if (operator === "+") {
         return [operand1 + operand2, "addition"];
+    } else if (operator === "x") {
+        return [operand1 * operand2, "multiply"]
     } else {
         alert(`unimplemented operator ${operator}`);
         throw `unimpletemented operator ${operator}. Aborting!`;
@@ -123,6 +127,8 @@ function displaySubtractQuestion() {
 
 }
 
-function displayMultiplyQuestion() {
-
+function displayMultiplyQuestion(operand1, operand2) {
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "x";
 }

@@ -90,13 +90,20 @@ function checkAnswer() {
     // setting an iscorrect variable that will either be true or false.
     let isCorrect = userAnswer === calculatedAnswer[0];
 
+    
+     // if answer block is left blank and submit is clicked. 
+     if (isNaN(userAnswer)) {
+         alert("Edward, you forgot to put in an answer, try again.");
+         return; // Stop further processing
+     }
+
     // if it is true congratulate the user. if it is false provide the correct answer. 
     if (isCorrect) {
-        alert("Hey! you got it right!");
+        alert("Hey Edward! you got it right!");
         // calls the function to increment correct answer score.
         incrementScore();
     } else {
-        alert(`Awww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+        alert(`Awww Edward,.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
          // calls the function to increment wrong answer tally..
         incrementWrongAnswer()
     }

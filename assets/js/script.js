@@ -51,9 +51,17 @@ function runGame(gameType) {
 
     //sets the cursor to inside the answer box. Sets the answer box to the focus.
     document.getElementById("answer-box").focus();
+
+    let num1, num2;
     //creates two random numbers between 1 and 25
-    let num1 = Math.floor(Math.random()*25) + 1;
-    let num2 = Math.floor(Math.random()*25) + 1;
+    if (gameType === "multiply" || gameType === "division") {
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
+    } else {
+        // Keep the original range for addition and subtraction
+        num1 = Math.floor(Math.random() * 25) + 1;
+        num2 = Math.floor(Math.random() * 25) + 1;
+    }
 
     // check the gametype parameter if it is equal to addition it will display addition question. Otherwise it will display an error.
     if (gameType ==="addition") {
